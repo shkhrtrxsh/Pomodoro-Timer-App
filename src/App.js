@@ -7,7 +7,6 @@ function Pomodoro() {
   const [time, setTime] = useState(1500000);
   const [isRunning, setIsRunning] = useState(false);
   const [duration, setDuration] = useState(25);
-  const [counter, setCounter] =useState(0);
   const minutes =Math.floor(time / 1000 / 60);
   const seconds = time % 60;
   console.log(minutes);
