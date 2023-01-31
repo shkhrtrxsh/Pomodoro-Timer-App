@@ -3,6 +3,7 @@ import "./App.css";
 let interval;
 function Pomodoro() {
   const [task, setTask] = useState('');
+  const [tasks, setTasks] = useState([]);
   const [time, setTime] = useState(1500000);
   const [isRunning, setIsRunning] = useState(false);
   const [duration, setDuration] = useState(25);
@@ -40,17 +41,12 @@ function Pomodoro() {
   
    
    
-    const handleTaskInput = (event) => {
-      setTask(event.target.value);
-    };
-    function handleCheckboxClick(event){
-    console.log(event.target);
-    }
-  
     const handleAddTask = () => {
-      var temp=document.querySelector(".inject").innerHTML;
-      document.querySelector(".inject").innerHTML = temp + "<br/>" + "<div class='p-5'><input class='gg' type='checkbox' onclick='handleCheckboxClick(this)' /><input type='text' value='${task}'></input></div>";
-      setCounter(counter+1);
+      setTasks((prev)=>[...prev,{
+        title: task, 
+        isCompleted: false
+      }]
+      );
       setTask('');
     };
   return (
@@ -83,7 +79,14 @@ function Pomodoro() {
         </div>
       </div>
       <div className='inject p-5'>
-
+      { tasks?.map((task, i)=> 
+          <div key={i} className='p-5'>
+            <input class='gg' type='checkbox' onChange={(e)=> setTasks((prev)=> {
+              prev[i].isCompleted = e.target.checked
+              return [...prev]
+            })} />
+            <p className={`${task?.isCompleted ? "line-through": ""} inline-block `}>{task.title}</p>
+          </div>) }
       </div>
       <div className="p-3 addtolist flex items-center bg-gray-300 rounded-lg shadow-lg">
       <input
@@ -91,7 +94,7 @@ function Pomodoro() {
         type="text"
         placeholder="Add task name..."
         value={task}
-        onChange={handleTaskInput}
+        onChange={(e)=>setTask(e.target.value)}
       />
       <button
         className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
@@ -100,9 +103,10 @@ function Pomodoro() {
         +
       </button>
     </div>
-      <div className=" bg-red-500">
-      <p>shkhrtrxsh.</p>
-      </div>
+    <div className="d-flex justify-content-end p-1">
+  <div><p className='text-xs'>shkhrtrxsh.</p></div>
+</div>
+
     </div>
   );
         }
