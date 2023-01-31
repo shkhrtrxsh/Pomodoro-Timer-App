@@ -81,11 +81,11 @@ function Pomodoro() {
       <div className='inject p-5'>
       { tasks?.map((task, i)=> 
           <div key={i} className='p-5'>
-            <input class='gg' type='checkbox' onChange={(e)=> setTasks((prev)=> {
+            <input class='gg pr-1' type='checkbox' onChange={(e)=> setTasks((prev)=> {
               prev[i].isCompleted = e.target.checked
               return [...prev]
             })} />
-            <p className={`${task?.isCompleted ? "line-through": ""} inline-block `}>{task.title}</p>
+            <p className={`${task?.isCompleted ? "line-through": ""} inline-block pl-1`}>{task.title}</p>
           </div>) }
       </div>
       <div className="p-3 addtolist flex items-center bg-gray-300 rounded-lg shadow-lg">
